@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Welcome to HACKATHON {% endblock %}</h1>
+    <select name= colours method="GET" action="/">
+    {% for colour in colours %}
+    <option value= "{{colour}}" SELECTED>{{colour}}</option>"
+    {% endfor %}
+    </select>
+{% endblock %}
