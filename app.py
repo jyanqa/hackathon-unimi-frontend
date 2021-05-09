@@ -2,7 +2,6 @@ from flask import Flask, render_template, Response, request, redirect, url_for
 import requests
 import json
 
-from flask_ngrok import run_with_ngrok
 app = Flask(__name__)
 
 @app.route('/')
