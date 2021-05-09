@@ -1,10 +1,40 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %} Welcome to HACKATHON {% endblock %}</h1>
-    <select name= colours method="GET" action="/">
+    <h1>{% block title %} CRYPTO ARBITRAGE {% endblock %}</h1>
+    <select id = 'abc' name= colours method="GET" action="/">
     {% for colour in colours %}
     <option value= "{{colour}}" SELECTED>{{colour}}</option>"
     {% endfor %}
     </select>
+
+    <select name= colours method="GET" action="/">
+    {% for a in extra_info %}
+    <option value= "{{a}}" SELECTED>{{a}}</option>"
+    {% endfor %}
+    </select>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+     <input type='text' id='word'>
+     <button type='button' id ='retrieve'>Submit</button>
+     <div id='wordResult'></div>
+  <script>
+    $(document).ready(function() {
+       $('#retrieve').click(function(){
+           var word = $('abc').val();
+           window.alert(word)
+           $.ajax({
+           url: "/get_word",
+           type: "get",
+           data: {word: word},
+           success: function(response) {
+           $("#wordResult").html(response.html);
+          },
+          error: function(xhr) {
+            //Do Something to handle error
+         }
+         });
+       });
+    });
+  </script>
 {% endblock %}
