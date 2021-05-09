@@ -2,9 +2,10 @@
 
 {% block content %}
     <h1>{% block title %} CRYPTO ARBITRAGE {% endblock %}</h1>
-    <select id = 'abc' name= colours method="GET" action="/">
-    {% for colour in colours %}
-    <option value= "{{colour}}" SELECTED>{{colour}}</option>"
+
+    <select id = "cp_list" name= cp method="GET" action="/">
+    {% for i in cp %}
+    <option value= "{{i}}" SELECTED>{{i}}</option>"
     {% endfor %}
     </select>
 
@@ -13,28 +14,30 @@
     <option value= "{{a}}" SELECTED>{{a}}</option>"
     {% endfor %}
     </select>
+    <button onclick="showPrice()">Show</button>
+    <p>Kucoin: <span id = "kc"></span></p>
+    <p>Binance:  <span id = "bn"></span></p>
+    <p>profit: <span id = "f"></span></p>
+<script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-     <input type='text' id='word'>
-     <button type='button' id ='retrieve'>Submit</button>
-     <div id='wordResult'></div>
-  <script>
-    $(document).ready(function() {
-       $('#retrieve').click(function(){
-           var word = $('abc').val();
-           window.alert(word)
-           $.ajax({
-           url: "/get_word",
-           type: "get",
-           data: {word: word},
-           success: function(response) {
-           $("#wordResult").html(response.html);
-          },
-          error: function(xhr) {
-            //Do Something to handle error
-         }
-         });
-       });
-    });
-  </script>
+function showPrice() {
+    let element = document.getElementById("cp_list");
+    let coin_pair = element.value
+    let endpoint = "http://localhost:5000/api/get_price"+"?coinpair="+coin_pair
+    console.log(coin_pair)
+    $.ajax({
+    type: "GET",
+    url: endpoint,
+    data: {},
+    success: function (data) {
+        document.getElementById("kc").innerHTML = data.kucoin
+        document.getElementById("bn").innerHTML = data.binance
+        let f = parseFloat(data.kucoin) - parseFloat(data.binance)
+        document.getElementById("f").innerHTML = f
+      console.log(data)
+    }
+  });
+}
+
+</script>
 {% endblock %}
