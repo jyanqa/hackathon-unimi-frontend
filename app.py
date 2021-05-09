@@ -13,4 +13,4 @@ def index():
     return render_template('index.html', colours = list_crypto_pairs,extra_info=extra_info)
 
 if __name__ == "__main__":
-    app.run(host="localhost", port=7000, debug=True)
+    app.run(host="localhost", port=80, debug=True)
